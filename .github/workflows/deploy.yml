@@ -21,7 +21,7 @@ jobs:
 
     environment:
       name: Development # Environment specific value
-      url: http://ecs-servicedemo-svc-dev-538a5870686976bb.elb.us-east-1.amazonaws.com/swagger/
+      url: http://ecs-servicedemo-svc-dev-aabbccddeeff.elb.us-east-1.amazonaws.com/swagger/
     
     steps:
     - uses: actions/checkout@v2
