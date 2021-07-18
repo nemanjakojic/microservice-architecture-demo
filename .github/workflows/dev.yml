@@ -1,0 +1,73 @@
+# Change the environment specific values as noted by the "Environment specific value" comments as needed
+
+name: Development # Environment specific value
+
+on:
+  push:
+    branches: [ main ] # Environment specific value
+  workflow_dispatch:
+  
+env: # Environment specific values
+  PUBLISH_CONFIG: Development
+  ECR_REPOSITORY: servicedemo-dev
+  ECS_CLUSTER: servicedemo-dev-Cluster
+  ECS_SERVICE: servicedemo-dev
+  ECS_CONTAINER_NAME: servicedemo-dev
+  ECS_TASK_DEFINITION: servicedemodevTaskDefinition
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    environment:
+      name: Development # Environment specific value
+      url: http://ecs-servicedemo-svc-dev-538a5870686976bb.elb.us-east-1.amazonaws.com/swagger/
+    
+    steps:
+    - uses: actions/checkout@v2
+
+    - name: Substitute task-definition.json values
+      uses: microsoft/variable-substitution@v1
+      with:
+        files: ./task-definition.json
+      env:
+        containerDefinitions.0.logConfiguration.options.awslogs-group: "/ecs/${{ env.ECS_TASK_DEFINITION }}"
+        containerDefinitions.0.name: ${{ env.ECS_CONTAINER_NAME }}
+        family: ${{ env.ECS_TASK_DEFINITION }}
+      
+    - name: Configure AWS credentials
+      uses: aws-actions/configure-aws-credentials@v1
+      with:
+        aws-access-key-id: ${{ secrets.AWS_DEPLOY_ACCESS_KEY }}
+        aws-secret-access-key: ${{ secrets.AWS_DEPLOY_SECRET_KEY }}
+        aws-region: us-east-1
+        
+    - name: Login to Amazon ECR
+      id: login-ecr
+      uses: aws-actions/amazon-ecr-login@v1
+      
+    - name: Build, tag, and push image to Amazon ECR
+      id: build-image
+      env:
+        ECR_REGISTRY: ${{ steps.login-ecr.outputs.registry }}
+        IMAGE_TAG: ${{ github.sha }}
+      run: |
+        docker build . -t $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG --build-arg publish_config=${{ env.PUBLISH_CONFIG }} --build-arg nuget_auth_token=${{ secrets.GITHUB_NUGET_AUTH_TOKEN }}
+        docker push $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG
+        echo "::set-output name=image::$ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG"
+      
+    - name: Fill in the new image ID in the Amazon ECS task definition
+      id: task-def
+      uses: aws-actions/amazon-ecs-render-task-definition@v1
+      with:
+        task-definition: task-definition.json
+        container-name: ${{ env.ECS_CONTAINER_NAME }}
+        image: ${{ steps.build-image.outputs.image }}
+
+    - name: Deploy container to Amazon ECS from Amazon ECR
+      uses: aws-actions/amazon-ecs-deploy-task-definition@v1
+      with:
+        task-definition: ${{ steps.task-def.outputs.task-definition }}
+        service: ${{ env.ECS_SERVICE }}
+        cluster: ${{ env.ECS_CLUSTER }}
+        wait-for-service-stability: true
