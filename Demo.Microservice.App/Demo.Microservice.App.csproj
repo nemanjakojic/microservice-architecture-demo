@@ -1,0 +1,17 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Remove="Common\Model\**" />
+    <EmbeddedResource Remove="Common\Model\**" />
+    <None Remove="Common\Model\**" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Demo.Microservice.Core\Demo.Microservice.Core.csproj" />
+  </ItemGroup>
+
+</Project>
