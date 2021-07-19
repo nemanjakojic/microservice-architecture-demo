@@ -4,7 +4,7 @@ name: Development # Environment specific value
 
 on:
   push:
-    branches: [ main ] # Environment specific value
+    branches: [ master ] # Environment specific value
   workflow_dispatch:
   
 env: # Environment specific values
