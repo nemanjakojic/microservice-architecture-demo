@@ -7,11 +7,11 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Demo.Microservice.Api", "De
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Test", "Test", "{912E4DEA-2490-48BF-85BA-C4C1699A8A1A}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Demo.Microservice.App", "Demo.Microservice.App\Demo.Microservice.App.csproj", "{68322812-2197-484D-AED2-8C16DB9561A6}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Demo.Microservice", "Demo.Microservice\Demo.Microservice.csproj", "{68322812-2197-484D-AED2-8C16DB9561A6}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Demo.Microservice.Test.Core", "Demo.Microservice.Test.Core\Demo.Microservice.Test.Core.csproj", "{6DAAC688-11BF-4AB0-88C3-9EF67AEFD961}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Demo.Microservice.App.Test", "Demo.Microservice.App.Test\Demo.Microservice.App.Test.csproj", "{1F5EB1DE-4571-4A80-B783-82032DB66002}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Demo.Microservice.Test", "Demo.Microservice.Test\Demo.Microservice.Test.csproj", "{1F5EB1DE-4571-4A80-B783-82032DB66002}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Demo.Microservice.Core", "Demo.Microservice.Core\Demo.Microservice.Core.csproj", "{A3576003-D721-4E1B-8F02-99B05FE268FE}"
 EndProject
