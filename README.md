@@ -1,5 +1,6 @@
 # A Microservice Architecture Demo
 
+## Summary
 * Demonstrates a design and code organization of a typical back-end microservice in a real-life cloud-native web application. 
 * This approach combines the benefits of clean abstractions as in "Clean Architecture" style with the practicality of keeping cohesive software components
 that tighly collaborate together as proposed in "Vertical Slices" architectural style. 
