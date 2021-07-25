@@ -7,3 +7,10 @@ that tighly collaborate together as proposed in "Vertical Slices" architectural 
 * It welcomes continuous architecture quality evaluation and makes the system redisign a commodity by allowing for straigthforward recombination of functionalities between microservices.
 * Automated application code testing and test-driven development is at the core the established software development process. 
 
+## Technologies
+* ASP.NET Core on C# (REST Web API)
+* Entity Framework Core
+* AWS (ECS, CloudWatch)
+* SQL Server
+* Serilog
+
