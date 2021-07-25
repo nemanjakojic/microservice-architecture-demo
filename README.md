@@ -15,14 +15,18 @@ that tighly collaborate together as proposed in "Vertical Slices" architectural 
 * Serilog
 
 ## The Code Solution Structure
-* `.github/worflows`: a folder with GitHub workflow files for CI/CD
-* `Demo.Microservice.Api`: ASP.NET Core Web API project that exposes the application functionalities through REST endpoints
-* `Demo.Microservice`: a class library with the self-contained and unit-testable core application functionalities
-* `Demo.Microservice.Core`: a reusable framework with generalized core building blocks for implementation of the application functionalities (powers `Demo.Microservice`, for instance)
-* `Demo.Microservice.Test`: contains a comprehensive suite of unit tests for each application functionality
-* `Demo.Microservice.Test.Core`: a class libary of reusable building blocks for implementing unit tests
+* `.github/worflows`: a folder with GitHub workflow files for CI/CD;
+* `Demo.Microservice.Api`: ASP.NET Core Web API project that exposes the application functionalities through REST endpoints;
+* `Demo.Microservice`: a class library with the self-contained and unit-testable core application functionalities;
+* `Demo.Microservice.Core`: a reusable framework with generalized core building blocks for implementation of the application functionalities (powers `Demo.Microservice`, for instance);
+* `Demo.Microservice.Test`: contains a comprehensive suite of unit tests for each application functionality;
+* `Demo.Microservice.Test.Core`: a class libary of reusable building blocks for implementing unit tests;
 * `task-definition.json`: contains a configuration of Docker containers used for deployment on AWS ECS (used by the `github/workflow/deploy.yml` workflow).
 
 ## Instructions for Running the Solution
-The demo functionalities in the solution can be run from within the `Demo.Microservice.Test` project.
-Please note: This demo code does not support automatic deployment on AWS at the moment. More instructions and condfiguration details are to be provided.
+* Plese make sure dotnet core 3.1 is installed on your machine.
+* Clone this repository by running `git clone https://github.com/nemanjakojic/microservice-architecture-demo.git`.
+* The demo functionalities in the solution can be invoked from within the `Demo.Microservice.Test` project:
+  * Run `dotnet test` inside the root folder that contains the solution file `Demo.Microservice.sln`;
+  * Alternatively, the tests can be run from within the Visual Studio IDE (tested with the version 2019).
+* **Please note**: This demo code does not support automatic deployment on AWS at the moment. More instructions and condfiguration details will be provided in the future.
