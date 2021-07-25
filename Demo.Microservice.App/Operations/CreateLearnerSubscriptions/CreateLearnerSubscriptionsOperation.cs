@@ -23,30 +23,24 @@ namespace Demo.Microservice.App.Operations.CreateLearnerSubscriptions
             _dateTimeService = dateTimeService;
         }
 
-        protected override async Task<ValidationResult> ValidateRequest(CreateLearnerSubscriptionsRequest request, CancellationToken cancellationToken)
+        protected override Task<ValidationResult> ValidateRequest(CreateLearnerSubscriptionsRequest request)
         {
-            var defaultCheck = await base.ValidateRequest(request, cancellationToken);
-            if (!defaultCheck.Valid)
-            {
-                return defaultCheck;
-            }
-
             if (request.InstitutionSubscriptionData == null)
             {
-                return ValidationResult.Failure().WithMessage("Institution subscription data is null.");
+                return ValidationResult.Failure().WithError("Institution subscription data is null.").ToTask();
             }
 
             if (request.Learners == null || !request.Learners.Any())
             {
-                return ValidationResult.Failure().WithMessage("No learners were specified.");
+                return ValidationResult.Failure().WithError("No learners were specified.").ToTask();
             }
 
-            return ValidationResult.Success();
+            return ValidationResult.Success().ToTask();
         }
 
-        protected override async Task<CreateLearnerSubscriptionResponse> ExecuteRequest(CreateLearnerSubscriptionsRequest request, CancellationToken cancellationToken)
+        protected override async Task<CreateLearnerSubscriptionResponse> ExecuteRequest(CreateLearnerSubscriptionsRequest request, ValidationResult validation)
         {
-            await using var transaction = await _context.Database.BeginTransactionAsync(cancellationToken);
+            await using var transaction = await _context.Database.BeginTransactionAsync();
 
             var newLearnerSubscriptions = await PrepareNewLearnerSubscriptions(request);
             foreach (var newSubsiption in newLearnerSubscriptions)
@@ -54,8 +48,8 @@ namespace Demo.Microservice.App.Operations.CreateLearnerSubscriptions
                 await _context.MemberSubscription.AddAsync(newSubsiption);
             }
 
-            await _context.SaveChangesAsync(cancellationToken);
-            await transaction.CommitAsync(cancellationToken);
+            await _context.SaveChangesAsync();
+            await transaction.CommitAsync();
 
             return new CreateLearnerSubscriptionResponse
             {

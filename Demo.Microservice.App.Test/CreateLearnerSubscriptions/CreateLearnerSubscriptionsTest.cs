@@ -45,7 +45,7 @@ namespace Demo.Microservice.App.Test.CreateLearnerSubscriptions
                 logger: MockUtils.MockLogger<CreateLearnerSubscriptionsOperation>());
 
             // Act
-            var result = await appOperation.Execute(testRequest, CancellationToken.None);
+            var result = await appOperation.Execute(testRequest);
 
             // Assert
             Assert.NotNull(result);
@@ -65,7 +65,7 @@ namespace Demo.Microservice.App.Test.CreateLearnerSubscriptions
                 logger: MockUtils.MockLogger<CreateLearnerSubscriptionsOperation>());
 
             // Act
-            var result = await appOperation.Execute(testRequest, CancellationToken.None);
+            var result = await appOperation.Execute(testRequest);
 
             // Assert
             Assert.NotNull(result);

@@ -48,11 +48,14 @@ namespace Demo.Microservice.Core.Extensions
 
             var sortParam = Expression.Parameter(typeof(T), $"orderBy{queryFilter.Sort.Field}");
             var sortProperty = Expression.Convert(Expression.Property(sortParam, queryFilter.Sort.Field), typeof(object));
-            var sortLambda = Expression.Lambda<Func<T, object>>(sortProperty, sortParam);
+            var sortExpression = Expression.Lambda<Func<T, object>>(sortProperty, sortParam);
 
-            return queryFilter.Sort.Order == Order.Asc
-                    ? queryable.OrderBy(sortLambda)
-                    : queryable.OrderByDescending(sortLambda);
+            return queryFilter.Sort.Order switch
+            {
+                Order.Asc => queryable.OrderBy(sortExpression),
+                Order.Desc => queryable.OrderByDescending(sortExpression),
+                _ => throw new ArgumentException($"Invalid QueryFilter.Sort.Order: { queryFilter.Sort.Order }.")
+            };
         }
     }
 }

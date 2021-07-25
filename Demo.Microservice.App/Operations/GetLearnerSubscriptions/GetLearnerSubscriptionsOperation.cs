@@ -27,34 +27,28 @@ namespace Demo.Microservice.App.Operations.GetLearnerSubscriptions
             _dateTimeService = dateTimeService;
         }
 
-        protected override async Task<ValidationResult> ValidateRequest(GetLearnerSubscriptionsRequest request, CancellationToken cancellationToken)
+        protected override Task<ValidationResult> ValidateRequest(GetLearnerSubscriptionsRequest request)
         {
-            var defaultCheck = await base.ValidateRequest(request, cancellationToken);
-            if (defaultCheck.Valid == false)
-            {
-                return defaultCheck;
-            }
-
             if (request.InstitutionId == Guid.Empty)
             {
-                return ValidationResult.Failure().WithMessage($"Invalid institution id: { request.InstitutionId }.");
+                return ValidationResult.Failure().WithError($"Invalid institution id: { request.InstitutionId }.").ToTask();
             }
 
             if (request.AccountId <= 0)
             {
-                return ValidationResult.Failure().WithMessage($"Invalid account id: { request.AccountId }.");
+                return ValidationResult.Failure().WithError($"Invalid account id: { request.AccountId }.").ToTask();
             }
 
-            return ValidationResult.Success();
+            return ValidationResult.Success().ToTask();
         }
 
-        protected async override Task<GetLearnerSubscriptionsResponse> ExecuteRequest(GetLearnerSubscriptionsRequest request, CancellationToken cancellationToken)
+        protected async override Task<GetLearnerSubscriptionsResponse> ExecuteRequest(GetLearnerSubscriptionsRequest request, ValidationResult validation)
         {
-            var subscriptions = await GetMemberSubscriptions(request, cancellationToken);
+            var subscriptions = await GetMemberSubscriptions(request);
             return new GetLearnerSubscriptionsResponse { SearchResult = subscriptions }.Success();
         }
         
-        private async Task<PagedResult<IEnumerable<MemberSubscription>>> GetMemberSubscriptions(GetLearnerSubscriptionsRequest request, CancellationToken cancellationToken)
+        private async Task<PagedResult<IEnumerable<MemberSubscription>>> GetMemberSubscriptions(GetLearnerSubscriptionsRequest request)
         {
             var utcNow = _dateTimeService.UtcNow();
 
