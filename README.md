@@ -22,3 +22,7 @@ that tighly collaborate together as proposed in "Vertical Slices" architectural 
 * `Demo.Microservice.Test`: contains a comprehensive suite of unit tests for each application functionality
 * `Demo.Microservice.Test.Core`: a class libary of reusable building blocks for implementing unit tests
 * `task-definition.json`: contains a configuration of Docker containers used for deployment on AWS ECS (used by the `github/workflow/deploy.yml` workflow).
+
+## Instructions for Running the Solution
+The demo functionalities in the solution can be run from within the `Demo.Microservice.Test` project.
+Please note: This demo code does not support automatic deployment on AWS at the moment. More instructions and condfiguration details are to be provided.
