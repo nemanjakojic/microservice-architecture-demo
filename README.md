@@ -14,3 +14,11 @@ that tighly collaborate together as proposed in "Vertical Slices" architectural 
 * SQL Server
 * Serilog
 
+## The Code Solution Structure
+* `.github/worflows`: a folder with GitHub workflow files for CI/CD
+* `Demo.Microservice.Api`: ASP.NET Core Web API project that exposes the application functionalities through REST endpoints
+* `Demo.Microservice`: a class library with the self-contained and unit-testable core application functionalities
+* `Demo.Microservice.Core`: a reusable framework with generalized core building blocks for implementation of the application functionalities (powers `Demo.Microservice`, for instance)
+* `Demo.Microservice.Test`: contains a comprehensive suite of unit tests for each application functionality
+* `Demo.Microservice.Test.Core`: a class libary of reusable building blocks for implementing unit tests
+* `task-definition.json`: contains a configuration of Docker containers used for deployment on AWS ECS (used by the `github/workflow/deploy.yml` workflow).
