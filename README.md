@@ -1,4 +1,4 @@
-# A Microservice Architecture Demo
+# A Microservice Software Architecture Demo
 
 ## Summary
 * Demonstrates a design and code organization of a typical back-end microservice in a real-life cloud-native web application. 
