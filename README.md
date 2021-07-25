@@ -24,7 +24,7 @@ that tighly collaborate together as proposed in "Vertical Slices" architectural 
 * `task-definition.json`: contains a configuration of Docker containers used for deployment on AWS ECS (used by the `github/workflow/deploy.yml` workflow).
 
 ## Instructions for Running the Solution
-* Plese make sure dotnet core 3.1 is installed on your machine.
+* Please make sure dotnet core 3.1 is installed on your machine.
 * Clone this repository by running `git clone https://github.com/nemanjakojic/microservice-architecture-demo.git`.
 * The demo functionalities in the solution can be invoked from within the `Demo.Microservice.Test` project:
   * Run `dotnet test` inside the root folder that contains the solution file `Demo.Microservice.sln`;
