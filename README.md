@@ -28,5 +28,5 @@ that tightly collaborate as proposed in "Vertical Slices" architectural style.
 * Clone this repository by running `git clone https://github.com/nemanjakojic/microservice-architecture-demo.git`.
 * The demo functionalities in the solution can be invoked from within the `Demo.Microservice.Test` project:
   * Run `dotnet test` inside the root folder that contains the solution file `Demo.Microservice.sln`;
-  * Alternatively, the tests can be run from within the Visual Studio IDE (tested with the version 2019).
+  * Alternatively, the tests can be run from within the Visual Studio IDE (tested in the version 2019).
 * **Please note**: This demo code does not support automatic deployment on AWS now. More instructions and configuration details will be provided in the future.
