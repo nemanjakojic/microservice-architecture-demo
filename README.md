@@ -5,7 +5,7 @@
 * This approach combines the benefits of clean abstractions as in "Clean Architecture" style with the practicality of keeping cohesive software components
 that tightly collaborate as proposed in "Vertical Slices" architectural style. 
 * It welcomes continuous architecture quality evaluation and makes the system redesign a commodity by allowing for straightforward recombination of functionalities between microservices.
-* Automated application code testing and test-driven development are at the core the established software development process. 
+* Automated application code testing and test-driven development are at the core of the established software development process. 
 
 ## Technologies
 * ASP.NET Core on C# (REST Web API)
