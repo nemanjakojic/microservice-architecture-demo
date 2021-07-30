@@ -14,7 +14,7 @@ that tightly collaborate as proposed in "Vertical Slices" architectural style.
 * SQL Server
 * Serilog
 
-## The Code Solution Structure
+## Solution Structure
 * `.github/worflows`: a folder with GitHub workflow files for CI/CD;
 * `Demo.Microservice.Api`: ASP.NET Core Web API project that exposes the application functionalities through REST endpoints;
 * `Demo.Microservice`: a class library with the self-contained and unit-testable core application functionalities;
