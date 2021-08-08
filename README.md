@@ -30,3 +30,6 @@ that tightly collaborate as proposed in "Vertical Slices" architectural style.
   * Run `dotnet test` inside the root folder that contains the solution file `Demo.Microservice.sln`;
   * Alternatively, the tests can be run from within the Visual Studio IDE (tested in the version 2019).
 * **Please note**: This demo code does not support automatic deployment on AWS now. More instructions and configuration details will be provided in the future.
+
+## Contact
+For any questions or comments, feel free to reach out to me at nemanja.kojic@gmail.com.
