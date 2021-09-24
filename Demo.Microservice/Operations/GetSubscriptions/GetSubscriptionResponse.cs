@@ -5,7 +5,7 @@ using System.Collections.Generic;
 
 namespace Demo.Microservice.App.Operations.GetSubscriptions
 {
-    public class GetSubscriptionsResponse : ServiceResponse
+    public class GetSubscriptionResponse : ServiceResponse
     {
         public PagedResult<IEnumerable<StudentSubscription>> SearchResult { get; set; }
 

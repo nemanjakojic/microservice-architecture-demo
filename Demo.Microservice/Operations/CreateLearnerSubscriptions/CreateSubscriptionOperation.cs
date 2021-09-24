@@ -12,18 +12,18 @@ using Demo.Microservice.Core.Extensions;
 
 namespace Demo.Microservice.App.Operations.CreateSubscriptions
 {
-    public class CreateSubscriptionsOperation : CoreOperationBase<CreateSubscriptionsRequest, CreateSubscriptionResponse>
+    public class CreateSubscriptionOperation : CoreOperationBase<CreateSubscriptionRequest, CreateSubscriptionResponse>
     {
         private readonly ISubscriptionDbContext _context;
         private readonly IDateTimeService _dateTimeService;
 
-        public CreateSubscriptionsOperation(ISubscriptionDbContext dbContext, IDateTimeService dateTimeService, ILogger<CreateSubscriptionsOperation> logger) : base(logger)
+        public CreateSubscriptionOperation(ISubscriptionDbContext dbContext, IDateTimeService dateTimeService, ILogger<CreateSubscriptionOperation> logger) : base(logger)
         {
             _context = dbContext;
             _dateTimeService = dateTimeService;
         }
 
-        protected override Task<ValidationResult> ValidateRequest(CreateSubscriptionsRequest request)
+        protected override Task<ValidationResult> ValidateRequest(CreateSubscriptionRequest request)
         {
             if (request.InstitutionSubscriptionData == null)
             {
@@ -38,7 +38,7 @@ namespace Demo.Microservice.App.Operations.CreateSubscriptions
             return ValidationResult.Success().ToTask();
         }
 
-        protected override async Task<CreateSubscriptionResponse> ExecuteRequest(CreateSubscriptionsRequest request, ValidationResult validation)
+        protected override async Task<CreateSubscriptionResponse> ExecuteRequest(CreateSubscriptionRequest request, ValidationResult validation)
         {
             await using var transaction = await _context.Database.BeginTransactionAsync();
 
@@ -61,7 +61,7 @@ namespace Demo.Microservice.App.Operations.CreateSubscriptions
             }.Success();
         }
 
-        private async Task<IEnumerable<StudentSubscription>> PrepareNewStudentSubscriptions(CreateSubscriptionsRequest request)
+        private async Task<IEnumerable<StudentSubscription>> PrepareNewStudentSubscriptions(CreateSubscriptionRequest request)
         {
             DateTime now = _dateTimeService.UtcNow();
 

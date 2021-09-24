@@ -5,7 +5,7 @@ using Moq;
 using System;
 using System.Collections.Generic;
 using Xunit;
-using MemberSubscriptionDto = Demo.Microservice.App.Operations.GetSubscriptions.GetSubscriptionsResponse.StudentSubscription;
+using MemberSubscriptionDto = Demo.Microservice.App.Operations.GetSubscriptions.GetSubscriptionResponse.StudentSubscription;
 
 namespace Demo.Microservice.App.Test.GetLearnerSubscriptions
 {
@@ -21,12 +21,12 @@ namespace Demo.Microservice.App.Test.GetLearnerSubscriptions
 
         private static int DefaultPageSize => 5;
         
-        public static TheoryData<GetSubscriptionsRequest, int[]> ValidRequestsWithoutSorting()
+        public static TheoryData<GetSubscriptionRequest, int[]> ValidRequestsWithoutSorting()
         {
-            return new TheoryData<GetSubscriptionsRequest, int[]>
+            return new TheoryData<GetSubscriptionRequest, int[]>
             {
                 {
-                    new GetSubscriptionsRequest
+                    new GetSubscriptionRequest
                     {
                         InstitutionId = ValidInstitutionId,
                         AccountId = ValidAccountId
@@ -36,12 +36,12 @@ namespace Demo.Microservice.App.Test.GetLearnerSubscriptions
             };
         }
 
-        public static TheoryData<GetSubscriptionsRequest, int[]> ValidRequestsWithSorting()
+        public static TheoryData<GetSubscriptionRequest, int[]> ValidRequestsWithSorting()
         {
-            return new TheoryData<GetSubscriptionsRequest, int[]>
+            return new TheoryData<GetSubscriptionRequest, int[]>
             {
                 {
-                    new GetSubscriptionsRequest
+                    new GetSubscriptionRequest
                     {
                         InstitutionId = ValidInstitutionId,
                         AccountId = ValidAccountId,
@@ -55,7 +55,7 @@ namespace Demo.Microservice.App.Test.GetLearnerSubscriptions
                     new int[] { 1, 3 }
                 },
                 {
-                    new GetSubscriptionsRequest
+                    new GetSubscriptionRequest
                     {
                         InstitutionId = ValidInstitutionId,
                         AccountId = ValidAccountId,
@@ -69,7 +69,7 @@ namespace Demo.Microservice.App.Test.GetLearnerSubscriptions
                     new int[] { 3, 1 }
                 },
                 {
-                    new GetSubscriptionsRequest
+                    new GetSubscriptionRequest
                     {
                         InstitutionId = ValidInstitutionId,
                         AccountId = ValidAccountId,
@@ -83,7 +83,7 @@ namespace Demo.Microservice.App.Test.GetLearnerSubscriptions
                     new int[] { 3, 1 }
                 },
                 {
-                    new GetSubscriptionsRequest
+                    new GetSubscriptionRequest
                     {
                         InstitutionId = ValidInstitutionId,
                         AccountId = ValidAccountId,
@@ -97,7 +97,7 @@ namespace Demo.Microservice.App.Test.GetLearnerSubscriptions
                     new int[] { 1, 3 }
                 },
                 {
-                    new GetSubscriptionsRequest
+                    new GetSubscriptionRequest
                     {
                         InstitutionId = ValidInstitutionId,
                         AccountId = ValidAccountId,
@@ -111,7 +111,7 @@ namespace Demo.Microservice.App.Test.GetLearnerSubscriptions
                     new int[] { 1, 3 }
                 },
                 {
-                    new GetSubscriptionsRequest
+                    new GetSubscriptionRequest
                     {
                         InstitutionId = ValidInstitutionId,
                         AccountId = ValidAccountId,
@@ -125,7 +125,7 @@ namespace Demo.Microservice.App.Test.GetLearnerSubscriptions
                     new int[] { 3, 1 }
                 },
                 {
-                    new GetSubscriptionsRequest
+                    new GetSubscriptionRequest
                     {
                         InstitutionId = ValidInstitutionId,
                         AccountId = ValidAccountId,
@@ -139,7 +139,7 @@ namespace Demo.Microservice.App.Test.GetLearnerSubscriptions
                     new int[] { 1, 3 }
                 },
                 {
-                    new GetSubscriptionsRequest
+                    new GetSubscriptionRequest
                     {
                         InstitutionId = ValidInstitutionId,
                         AccountId = ValidAccountId,

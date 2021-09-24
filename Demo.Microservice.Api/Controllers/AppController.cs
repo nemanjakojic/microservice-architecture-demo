@@ -22,23 +22,23 @@ namespace Demo.Microservice.Api.Controllers
 
         [HttpPost]
         [Route("{institutionId}/account/{accountId}/subscriptions")]
-        public async Task<ActionResult<GetSubscriptionsResponse>> GetSubscriptions([FromRoute] Guid institutionId, [FromRoute] int accountId, [FromBody] QueryFilter queryFilter)
+        public async Task<ActionResult<GetSubscriptionResponse>> GetSubscriptions([FromRoute] Guid institutionId, [FromRoute] int accountId, [FromBody] QueryFilter queryFilter)
         {
-            var request = new GetSubscriptionsRequest
+            var request = new GetSubscriptionRequest
             {
                 InstitutionId = institutionId,
                 AccountId = accountId,
                 SubscriptionFilter = queryFilter
             };
 
-            var appOperation = _coreOperationProvider.GetCoreOperation<GetSubscriptionsOperation>();
+            var appOperation = _coreOperationProvider.GetCoreOperation<GetSubscriptionOperation>();
             return await appOperation.Execute(request);
         }
 
         [HttpPost("{institutionId}/subscription")]
-        public async Task<ActionResult<CreateSubscriptionResponse>> CreateSubscriptions([FromRoute] Guid institutionId, [FromBody] CreateSubscriptionsRequest request)
+        public async Task<ActionResult<CreateSubscriptionResponse>> CreateSubscriptions([FromRoute] Guid institutionId, [FromBody] CreateSubscriptionRequest request)
         {
-            var appOperation = _coreOperationProvider.GetCoreOperation<CreateSubscriptionsOperation>();
+            var appOperation = _coreOperationProvider.GetCoreOperation<CreateSubscriptionOperation>();
             return await appOperation.Execute(request);
         }
     }

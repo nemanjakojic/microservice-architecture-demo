@@ -3,23 +3,23 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 using Xunit;
-using static Demo.Microservice.App.Operations.CreateSubscriptions.CreateSubscriptionsRequest;
+using static Demo.Microservice.App.Operations.CreateSubscriptions.CreateSubscriptionRequest;
 
 namespace Demo.Microservice.App.Test.CreateLearnerSubscriptions
 {
     public partial class CreateSubscriptionsTest
     {
-        public static TheoryData<CreateSubscriptionsRequest> InvalidRequests()
+        public static TheoryData<CreateSubscriptionRequest> InvalidRequests()
         {
-            return new TheoryData<CreateSubscriptionsRequest>
+            return new TheoryData<CreateSubscriptionRequest>
             {
                 null,
-                new CreateSubscriptionsRequest
+                new CreateSubscriptionRequest
                 {
                     InstitutionSubscriptionData = null,
                     Students = null
                 },
-                new CreateSubscriptionsRequest
+                new CreateSubscriptionRequest
                 {
                     InstitutionSubscriptionData = new InstitutionSubscription
                     {
@@ -30,7 +30,7 @@ namespace Demo.Microservice.App.Test.CreateLearnerSubscriptions
                     },
                     Students = null
                 },
-                new CreateSubscriptionsRequest
+                new CreateSubscriptionRequest
                 {
                     InstitutionSubscriptionData = new InstitutionSubscription
                     {
@@ -41,7 +41,7 @@ namespace Demo.Microservice.App.Test.CreateLearnerSubscriptions
                     },
                     Students = null
                 },
-                new CreateSubscriptionsRequest
+                new CreateSubscriptionRequest
                 {
                     InstitutionSubscriptionData = new InstitutionSubscription
                     {
@@ -52,7 +52,7 @@ namespace Demo.Microservice.App.Test.CreateLearnerSubscriptions
                     },
                     Students = null
                 },
-                new CreateSubscriptionsRequest
+                new CreateSubscriptionRequest
                 {
                     InstitutionSubscriptionData = new InstitutionSubscription
                     {
@@ -63,7 +63,7 @@ namespace Demo.Microservice.App.Test.CreateLearnerSubscriptions
                     },
                     Students = null
                 },
-                new CreateSubscriptionsRequest
+                new CreateSubscriptionRequest
                 {
                     InstitutionSubscriptionData = new InstitutionSubscription
                     {
@@ -74,7 +74,7 @@ namespace Demo.Microservice.App.Test.CreateLearnerSubscriptions
                     },
                     Students = null
                 },
-                new CreateSubscriptionsRequest
+                new CreateSubscriptionRequest
                 {
                     InstitutionSubscriptionData = new InstitutionSubscription
                     {
@@ -85,7 +85,7 @@ namespace Demo.Microservice.App.Test.CreateLearnerSubscriptions
                     },
                     Students = new List<StudentData>()
                 },
-                new CreateSubscriptionsRequest
+                new CreateSubscriptionRequest
                 {
                     InstitutionSubscriptionData = new InstitutionSubscription
                     {
@@ -96,7 +96,7 @@ namespace Demo.Microservice.App.Test.CreateLearnerSubscriptions
                     },
                     Students = new List<StudentData> { null, null }
                 },
-                new CreateSubscriptionsRequest
+                new CreateSubscriptionRequest
                 {
                     InstitutionSubscriptionData = new InstitutionSubscription
                     {
@@ -111,7 +111,7 @@ namespace Demo.Microservice.App.Test.CreateLearnerSubscriptions
                         new StudentData { AccountId = 0, GraduationYear = 0 }
                     }
                 },
-                new CreateSubscriptionsRequest
+                new CreateSubscriptionRequest
                 {
                     InstitutionSubscriptionData = new InstitutionSubscription
                     {
@@ -125,7 +125,7 @@ namespace Demo.Microservice.App.Test.CreateLearnerSubscriptions
                         new StudentData { AccountId = ValidAccountId, GraduationYear = 0 }
                     }
                 },
-                new CreateSubscriptionsRequest
+                new CreateSubscriptionRequest
                 {
                     InstitutionSubscriptionData = new InstitutionSubscription
                     {

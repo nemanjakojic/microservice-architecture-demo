@@ -6,7 +6,7 @@ using System.Text;
 
 namespace Demo.Microservice.App.Operations.GetSubscriptions
 {
-    public class GetSubscriptionsRequest : ServiceRequest
+    public class GetSubscriptionRequest : ServiceRequest
     {
         public Guid InstitutionId { get; set; }
         public int AccountId { get; set; }

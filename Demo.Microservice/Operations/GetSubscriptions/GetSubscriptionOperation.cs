@@ -11,23 +11,23 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
-using static Demo.Microservice.App.Operations.GetSubscriptions.GetSubscriptionsResponse;
+using static Demo.Microservice.App.Operations.GetSubscriptions.GetSubscriptionResponse;
 
 namespace Demo.Microservice.App.Operations.GetSubscriptions
 {
-    public class GetSubscriptionsOperation : CoreOperationBase<GetSubscriptionsRequest, GetSubscriptionsResponse>
+    public class GetSubscriptionOperation : CoreOperationBase<GetSubscriptionRequest, GetSubscriptionResponse>
     {
         private readonly ISubscriptionDbContext _context;
         private readonly IDateTimeService _dateTimeService;
 
-        public GetSubscriptionsOperation(ISubscriptionDbContext context, IDateTimeService dateTimeService, ILogger<GetSubscriptionsOperation> logger)
+        public GetSubscriptionOperation(ISubscriptionDbContext context, IDateTimeService dateTimeService, ILogger<GetSubscriptionOperation> logger)
             : base(logger)
         {
             _context = context;
             _dateTimeService = dateTimeService;
         }
 
-        protected override Task<ValidationResult> ValidateRequest(GetSubscriptionsRequest request)
+        protected override Task<ValidationResult> ValidateRequest(GetSubscriptionRequest request)
         {
             if (request.InstitutionId == Guid.Empty)
             {
@@ -42,13 +42,13 @@ namespace Demo.Microservice.App.Operations.GetSubscriptions
             return ValidationResult.Success().ToTask();
         }
 
-        protected async override Task<GetSubscriptionsResponse> ExecuteRequest(GetSubscriptionsRequest request, ValidationResult validation)
+        protected async override Task<GetSubscriptionResponse> ExecuteRequest(GetSubscriptionRequest request, ValidationResult validation)
         {
             var subscriptions = await GetMemberSubscriptions(request);
-            return new GetSubscriptionsResponse { SearchResult = subscriptions }.Success();
+            return new GetSubscriptionResponse { SearchResult = subscriptions }.Success();
         }
         
-        private async Task<PagedResult<IEnumerable<StudentSubscription>>> GetMemberSubscriptions(GetSubscriptionsRequest request)
+        private async Task<PagedResult<IEnumerable<StudentSubscription>>> GetMemberSubscriptions(GetSubscriptionRequest request)
         {
             var utcNow = _dateTimeService.UtcNow();
 

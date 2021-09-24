@@ -3,17 +3,17 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 using Xunit;
-using static Demo.Microservice.App.Operations.CreateSubscriptions.CreateSubscriptionsRequest;
+using static Demo.Microservice.App.Operations.CreateSubscriptions.CreateSubscriptionRequest;
 
 namespace Demo.Microservice.App.Test.CreateLearnerSubscriptions
 {
     public partial class CreateSubscriptionsTest
     {
-        public static TheoryData<CreateSubscriptionsRequest> ValidRequests()
+        public static TheoryData<CreateSubscriptionRequest> ValidRequests()
         {
-            return new TheoryData<CreateSubscriptionsRequest>
+            return new TheoryData<CreateSubscriptionRequest>
             {
-                new CreateSubscriptionsRequest
+                new CreateSubscriptionRequest
                 {
                     InstitutionSubscriptionData = new InstitutionSubscription
                     {
