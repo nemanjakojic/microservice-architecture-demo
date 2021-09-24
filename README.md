@@ -1,9 +1,9 @@
 # A Microservice Software Architecture Demo
 
 ## Summary
-* Demonstrates a design and code organization of a typical back-end microservice in a real-life cloud-native web application. 
-* This approach combines the benefits of clean abstractions as in "Clean Architecture" style with the practicality of keeping cohesive software components
-that tightly collaborate as proposed in "Vertical Slices" architectural style. 
+* Demonstrates a design and code organization for the microservice architecture style. 
+* This approach combines the benefits of clean abstractions as in the "Clean Architecture" style with the practicality of keeping cohesive software components
+that tightly collaborate as proposed in the "Vertical Slices" architectural style. 
 * It welcomes continuous architecture quality evaluation and makes the system redesign a commodity by allowing for straightforward recombination of functionalities between microservices.
 * Automated application code testing and test-driven development are at the core of the established software development process. 
 
@@ -32,4 +32,4 @@ that tightly collaborate as proposed in "Vertical Slices" architectural style.
 * **Please note**: This demo code does not support automatic deployment on AWS now. More instructions and configuration details will be provided in the future.
 
 ## Contact
-For any questions or comments, feel free to reach out to me at nemanja.kojic@gmail.com.
+For any questions or comments, feel free to reach out at nkojic@gmail.com.
