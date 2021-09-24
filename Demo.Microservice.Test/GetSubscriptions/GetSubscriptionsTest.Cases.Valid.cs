@@ -1,20 +1,19 @@
-﻿using Demo.Microservice.App.Operations.GetLearnerSubscriptions;
+﻿using Demo.Microservice.App.Operations.GetSubscriptions;
 using Demo.Microservice.Core.Common.Enum;
 using Demo.Microservice.Core.Common.Model;
 using Moq;
 using System;
 using System.Collections.Generic;
 using Xunit;
-using MemberSubscriptionDto = Demo.Microservice.App.Operations.GetLearnerSubscriptions.GetLearnerSubscriptionsResponse.MemberSubscription;
+using MemberSubscriptionDto = Demo.Microservice.App.Operations.GetSubscriptions.GetSubscriptionsResponse.StudentSubscription;
 
 namespace Demo.Microservice.App.Test.GetLearnerSubscriptions
 {
-    public partial class GetLearnerSubscriptionsTest
+    public partial class GetSubscriptionsTest
     {
         private static IEnumerable<string> ValidSortingProperties()
         {
-            yield return nameof(MemberSubscriptionDto.ExamBankName);
-            yield return nameof(MemberSubscriptionDto.ExamYearName);
+            yield return nameof(MemberSubscriptionDto.QuestionBankName);
             yield return nameof(MemberSubscriptionDto.ValidityStartDate);
             yield return nameof(MemberSubscriptionDto.ValidityEndDate);
             yield return nameof(MemberSubscriptionDto.GraduationYear);
@@ -22,12 +21,12 @@ namespace Demo.Microservice.App.Test.GetLearnerSubscriptions
 
         private static int DefaultPageSize => 5;
         
-        public static TheoryData<GetLearnerSubscriptionsRequest, int[]> ValidRequestsWithoutSorting()
+        public static TheoryData<GetSubscriptionsRequest, int[]> ValidRequestsWithoutSorting()
         {
-            return new TheoryData<GetLearnerSubscriptionsRequest, int[]>
+            return new TheoryData<GetSubscriptionsRequest, int[]>
             {
                 {
-                    new GetLearnerSubscriptionsRequest
+                    new GetSubscriptionsRequest
                     {
                         InstitutionId = ValidInstitutionId,
                         AccountId = ValidAccountId
@@ -37,12 +36,12 @@ namespace Demo.Microservice.App.Test.GetLearnerSubscriptions
             };
         }
 
-        public static TheoryData<GetLearnerSubscriptionsRequest, int[]> ValidRequestsWithSorting()
+        public static TheoryData<GetSubscriptionsRequest, int[]> ValidRequestsWithSorting()
         {
-            return new TheoryData<GetLearnerSubscriptionsRequest, int[]>
+            return new TheoryData<GetSubscriptionsRequest, int[]>
             {
                 {
-                    new GetLearnerSubscriptionsRequest
+                    new GetSubscriptionsRequest
                     {
                         InstitutionId = ValidInstitutionId,
                         AccountId = ValidAccountId,
@@ -50,13 +49,13 @@ namespace Demo.Microservice.App.Test.GetLearnerSubscriptions
                         {
                             Page = 1,
                             PageSize = DefaultPageSize,
-                            Sort = new Sort { Field = nameof(MemberSubscriptionDto.ExamBankName), Order = Order.Asc }
+                            Sort = new Sort { Field = nameof(MemberSubscriptionDto.QuestionBankName), Order = Order.Asc }
                         }
                     },
                     new int[] { 1, 3 }
                 },
                 {
-                    new GetLearnerSubscriptionsRequest
+                    new GetSubscriptionsRequest
                     {
                         InstitutionId = ValidInstitutionId,
                         AccountId = ValidAccountId,
@@ -64,41 +63,13 @@ namespace Demo.Microservice.App.Test.GetLearnerSubscriptions
                         {
                             Page = 1,
                             PageSize = DefaultPageSize,
-                            Sort = new Sort { Field = nameof(MemberSubscriptionDto.ExamBankName), Order = Order.Desc }
+                            Sort = new Sort { Field = nameof(MemberSubscriptionDto.QuestionBankName), Order = Order.Desc }
                         }
                     },
                     new int[] { 3, 1 }
                 },
                 {
-                    new GetLearnerSubscriptionsRequest
-                    {
-                        InstitutionId = ValidInstitutionId,
-                        AccountId = ValidAccountId,
-                        SubscriptionFilter = new QueryFilter
-                        {
-                            Page = 1,
-                            PageSize = DefaultPageSize,
-                            Sort = new Sort { Field = nameof(MemberSubscriptionDto.ExamYearName), Order = Order.Asc }
-                        }
-                    },
-                    new int[] { 3, 1 }
-                },
-                {
-                    new GetLearnerSubscriptionsRequest
-                    {
-                        InstitutionId = ValidInstitutionId,
-                        AccountId = ValidAccountId,
-                        SubscriptionFilter = new QueryFilter
-                        {
-                            Page = 1,
-                            PageSize = DefaultPageSize,
-                            Sort = new Sort { Field = nameof(MemberSubscriptionDto.ExamYearName), Order = Order.Desc }
-                        }
-                    },
-                    new int[] { 1, 3 }
-                },
-                {
-                    new GetLearnerSubscriptionsRequest
+                    new GetSubscriptionsRequest
                     {
                         InstitutionId = ValidInstitutionId,
                         AccountId = ValidAccountId,
@@ -112,7 +83,7 @@ namespace Demo.Microservice.App.Test.GetLearnerSubscriptions
                     new int[] { 3, 1 }
                 },
                 {
-                    new GetLearnerSubscriptionsRequest
+                    new GetSubscriptionsRequest
                     {
                         InstitutionId = ValidInstitutionId,
                         AccountId = ValidAccountId,
@@ -126,7 +97,7 @@ namespace Demo.Microservice.App.Test.GetLearnerSubscriptions
                     new int[] { 1, 3 }
                 },
                 {
-                    new GetLearnerSubscriptionsRequest
+                    new GetSubscriptionsRequest
                     {
                         InstitutionId = ValidInstitutionId,
                         AccountId = ValidAccountId,
@@ -140,7 +111,7 @@ namespace Demo.Microservice.App.Test.GetLearnerSubscriptions
                     new int[] { 1, 3 }
                 },
                 {
-                    new GetLearnerSubscriptionsRequest
+                    new GetSubscriptionsRequest
                     {
                         InstitutionId = ValidInstitutionId,
                         AccountId = ValidAccountId,
@@ -154,7 +125,7 @@ namespace Demo.Microservice.App.Test.GetLearnerSubscriptions
                     new int[] { 3, 1 }
                 },
                 {
-                    new GetLearnerSubscriptionsRequest
+                    new GetSubscriptionsRequest
                     {
                         InstitutionId = ValidInstitutionId,
                         AccountId = ValidAccountId,
@@ -168,7 +139,7 @@ namespace Demo.Microservice.App.Test.GetLearnerSubscriptions
                     new int[] { 1, 3 }
                 },
                 {
-                    new GetLearnerSubscriptionsRequest
+                    new GetSubscriptionsRequest
                     {
                         InstitutionId = ValidInstitutionId,
                         AccountId = ValidAccountId,

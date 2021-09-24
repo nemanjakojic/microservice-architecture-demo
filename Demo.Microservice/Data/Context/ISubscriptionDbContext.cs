@@ -9,9 +9,8 @@ namespace Demo.Microservice.App.Data.Context
 {
     public interface ISubscriptionDbContext : IApplicationDbContext
     {
-        DbSet<MemberSubscription> MemberSubscription { get; set; }
-        DbSet<ExamBank> ExamBank { get; set; }
+        DbSet<StudentSubscription> StudentSubscription { get; set; }
+        DbSet<QuestionBank> QuestionBank { get; set; }
         DbSet<InstitutionSubscription> InstitutionSubscription { get; set; }
-        DbSet<ExamYear> ExamYear { get; set; }
     }
 }

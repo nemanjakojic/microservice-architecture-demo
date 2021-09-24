@@ -1,5 +1,5 @@
 using Demo.Microservice.App.Data.Context;
-using Demo.Microservice.App.Operations.GetLearnerSubscriptions;
+using Demo.Microservice.App.Operations.GetSubscriptions;
 using Demo.Microservice.Core.Test.Mock;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Diagnostics;
@@ -12,12 +12,12 @@ using Xunit;
 
 namespace Demo.Microservice.App.Test.GetLearnerSubscriptions
 {
-    public partial class GetLearnerSubscriptionsTest
+    public partial class GetSubscriptionsTest
     {
         private ServiceCollection Services { get; set; }
         private ServiceProvider ServiceProvider { get; set; }
 
-        public GetLearnerSubscriptionsTest()
+        public GetSubscriptionsTest()
         {
             Services = new ServiceCollection();
 
@@ -34,16 +34,16 @@ namespace Demo.Microservice.App.Test.GetLearnerSubscriptions
         }
 
         [Theory]
-        [MemberData(nameof(ValidRequestsWithoutSorting), MemberType = typeof(GetLearnerSubscriptionsTest))]
-        public async Task TestExecute_WhenInputIsValidAndNoSorting_ReturnsCorrectResult(GetLearnerSubscriptionsRequest request, int[] expectedResult)
+        [MemberData(nameof(ValidRequestsWithoutSorting), MemberType = typeof(GetSubscriptionsTest))]
+        public async Task TestExecute_WhenInputIsValidAndNoSorting_ReturnsCorrectResult(GetSubscriptionsRequest request, int[] expectedResult)
         {
             // Arrange
             using var dbContext = InitDataModel();
 
-            var appService = new GetLearnerSubscriptionsOperation(
+            var appService = new GetSubscriptionsOperation(
                 context: dbContext,
                 dateTimeService: MockUtils.MockDateTimeService(new DateTime(2021, 7, 10)),
-                logger: MockUtils.MockLogger<GetLearnerSubscriptionsOperation>());
+                logger: MockUtils.MockLogger<GetSubscriptionsOperation>());
 
             // Act
             var result = await appService.Execute(request);
@@ -60,16 +60,16 @@ namespace Demo.Microservice.App.Test.GetLearnerSubscriptions
         }
 
         [Theory]
-        [MemberData(nameof(ValidRequestsWithSorting), MemberType = typeof(GetLearnerSubscriptionsTest))]
-        public async Task TestExecute_WhenRequestIsValidAndSorting_ReturnsCorrectlySortedResult(GetLearnerSubscriptionsRequest request, int[] expectedResult)
+        [MemberData(nameof(ValidRequestsWithSorting), MemberType = typeof(GetSubscriptionsTest))]
+        public async Task TestExecute_WhenRequestIsValidAndSorting_ReturnsCorrectlySortedResult(GetSubscriptionsRequest request, int[] expectedResult)
         {
             // Arrange
             using var dbContext = InitDataModel();
 
-            var appService = new GetLearnerSubscriptionsOperation(
+            var appService = new GetSubscriptionsOperation(
                 context: dbContext,
                 dateTimeService: MockUtils.MockDateTimeService(new DateTime(2021, 7, 10)),
-                logger: MockUtils.MockLogger<GetLearnerSubscriptionsOperation>());
+                logger: MockUtils.MockLogger<GetSubscriptionsOperation>());
 
             // Act
             var result = await appService.Execute(request);
@@ -87,16 +87,16 @@ namespace Demo.Microservice.App.Test.GetLearnerSubscriptions
         }
 
         [Theory]
-        [MemberData(nameof(InvalidRequests), MemberType = typeof(GetLearnerSubscriptionsTest))]
-        public async Task TestExecute_WhenInputIsInvalid_ReturnsFailure(GetLearnerSubscriptionsRequest testRequest)
+        [MemberData(nameof(InvalidRequests), MemberType = typeof(GetSubscriptionsTest))]
+        public async Task TestExecute_WhenInputIsInvalid_ReturnsFailure(GetSubscriptionsRequest testRequest)
         {
             // Arrange
             using var dbContext = InitDataModel();
 
-            var appOperation = new GetLearnerSubscriptionsOperation(
+            var appOperation = new GetSubscriptionsOperation(
                 context: dbContext,
                 dateTimeService: MockUtils.MockDateTimeService(new DateTime(2021, 7, 10)),
-                logger: MockUtils.MockLogger<GetLearnerSubscriptionsOperation>());
+                logger: MockUtils.MockLogger<GetSubscriptionsOperation>());
 
             // Act
             var result = await appOperation.Execute(testRequest);

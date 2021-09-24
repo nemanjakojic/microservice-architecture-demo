@@ -1,4 +1,4 @@
-﻿using Demo.Microservice.App.Operations.GetLearnerSubscriptions;
+﻿using Demo.Microservice.App.Operations.GetSubscriptions;
 using Demo.Microservice.Core.Common.Enum;
 using Demo.Microservice.Core.Common.Model;
 using Moq;
@@ -9,24 +9,24 @@ using Xunit;
 
 namespace Demo.Microservice.App.Test.GetLearnerSubscriptions
 {
-    public partial class GetLearnerSubscriptionsTest
+    public partial class GetSubscriptionsTest
     {
-        public static TheoryData<GetLearnerSubscriptionsRequest> InvalidRequests()
+        public static TheoryData<GetSubscriptionRequest> InvalidRequests()
         {
-            return new TheoryData<GetLearnerSubscriptionsRequest>
+            return new TheoryData<GetSubscriptionRequest>
             {
                 null,
-                new GetLearnerSubscriptionsRequest
+                new GetSubscriptionRequest
                 {
                     InstitutionId = Guid.Empty,
                     AccountId = ValidAccountId
                 },
-                new GetLearnerSubscriptionsRequest
+                new GetSubscriptionRequest
                 {
                     InstitutionId = ValidInstitutionId,
                     AccountId = 0
                 },
-                new GetLearnerSubscriptionsRequest
+                new GetSubscriptionRequest
                 {
                     InstitutionId = ValidInstitutionId,
                     AccountId = ValidAccountId,
@@ -36,7 +36,7 @@ namespace Demo.Microservice.App.Test.GetLearnerSubscriptions
                         PageSize = DefaultPageSize   // valid size
                     }
                 },
-                new GetLearnerSubscriptionsRequest
+                new GetSubscriptionRequest
                 {
                     InstitutionId = ValidInstitutionId,
                     AccountId = ValidAccountId,
@@ -46,7 +46,7 @@ namespace Demo.Microservice.App.Test.GetLearnerSubscriptions
                         PageSize = -1  // invalid size
                     }
                 },
-                new GetLearnerSubscriptionsRequest
+                new GetSubscriptionRequest
                 {
                     InstitutionId = ValidInstitutionId,
                     AccountId = ValidAccountId,
@@ -56,7 +56,7 @@ namespace Demo.Microservice.App.Test.GetLearnerSubscriptions
                         PageSize = -1   // invalid size
                     }
                 },
-                new GetLearnerSubscriptionsRequest
+                new GetSubscriptionRequest
                 {
                     InstitutionId = ValidInstitutionId,
                     AccountId = ValidAccountId,
@@ -71,7 +71,7 @@ namespace Demo.Microservice.App.Test.GetLearnerSubscriptions
                         }
                     }
                 },
-                new GetLearnerSubscriptionsRequest
+                new GetSubscriptionRequest
                 {
                     InstitutionId = ValidInstitutionId,
                     AccountId = ValidAccountId,
@@ -86,7 +86,7 @@ namespace Demo.Microservice.App.Test.GetLearnerSubscriptions
                         }
                     }
                 },
-                new GetLearnerSubscriptionsRequest
+                new GetSubscriptionRequest
                 {
                     InstitutionId = ValidInstitutionId,
                     AccountId = ValidAccountId,

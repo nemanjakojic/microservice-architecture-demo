@@ -3,23 +3,22 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace Demo.Microservice.App.Operations.CreateLearnerSubscriptions
+namespace Demo.Microservice.App.Operations.CreateSubscriptions
 {
-    public class CreateLearnerSubscriptionsRequest : ServiceRequest
+    public class CreateSubscriptionRequest : ServiceRequest
     {
         public InstitutionSubscription InstitutionSubscriptionData { get; set; }
-        public IEnumerable<LearnerData> Learners { get; set; }
+        public IEnumerable<StudentData> Students { get; set; }
 
         public class InstitutionSubscription
         {
-            public Guid InstitutionSubscriptionId { get; set; }
+            public Guid Id { get; set; }
             public DateTime StartDate { get; set; }
             public DateTime EndDate { get; set; }
-            public int ExamBankId { get; set; }
-            public int ExamYearId { get; set; }
+            public int QuestionBankId { get; set; }
         }
 
-        public class LearnerData
+        public class StudentData
         {
             public int AccountId { get; set; }
             public int GraduationYear { get; set; }

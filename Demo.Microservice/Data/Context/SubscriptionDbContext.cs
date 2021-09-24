@@ -10,9 +10,8 @@ namespace Demo.Microservice.App.Data.Context
         {
         }
 
-        public DbSet<MemberSubscription> MemberSubscription { get; set; }
-        public DbSet<ExamBank> ExamBank { get; set; }
+        public DbSet<StudentSubscription> StudentSubscription { get; set; }
+        public DbSet<QuestionBank> QuestionBank { get; set; }
         public DbSet<InstitutionSubscription> InstitutionSubscription { get; set; }
-        public DbSet<ExamYear> ExamYear { get; set; }
     }
 }

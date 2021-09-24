@@ -1,5 +1,5 @@
 ﻿using Demo.Microservice.App.Data.Context;
-using Demo.Microservice.App.Operations.CreateLearnerSubscriptions;
+using Demo.Microservice.App.Operations.CreateSubscriptions;
 using Demo.Microservice.Core.Test.Mock;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Diagnostics;
@@ -11,12 +11,12 @@ using Xunit;
 
 namespace Demo.Microservice.App.Test.CreateLearnerSubscriptions
 {
-    public partial class CreateLearnerSubscriptionsTest
+    public partial class CreateSubscriptionsTest
     {
         private ServiceCollection Services { get; set; }
         private ServiceProvider ServiceProvider { get; set; }
 
-        public CreateLearnerSubscriptionsTest()
+        public CreateSubscriptionsTest()
         {
             Services = new ServiceCollection();
 
@@ -33,16 +33,16 @@ namespace Demo.Microservice.App.Test.CreateLearnerSubscriptions
         }
 
         [Theory]
-        [MemberData(nameof(InvalidRequests), MemberType = typeof(CreateLearnerSubscriptionsTest))]
-        public async Task TestExecute_WhenInputIsInvalid_ReturnsFailure(CreateLearnerSubscriptionsRequest testRequest)
+        [MemberData(nameof(InvalidRequests), MemberType = typeof(CreateSubscriptionsTest))]
+        public async Task TestExecute_WhenInputIsInvalid_ReturnsFailure(CreateSubscriptionRequest testRequest)
         {
             // Arrange
             var dbContext = InitDataModel();
 
-            var appOperation = new CreateLearnerSubscriptionsOperation(
+            var appOperation = new CreateSubscriptionOperation(
                 dbContext: dbContext,
                 dateTimeService: MockUtils.MockDateTimeService(new DateTime(2021, 7, 10)),
-                logger: MockUtils.MockLogger<CreateLearnerSubscriptionsOperation>());
+                logger: MockUtils.MockLogger<CreateSubscriptionOperation>());
 
             // Act
             var result = await appOperation.Execute(testRequest);
@@ -53,16 +53,16 @@ namespace Demo.Microservice.App.Test.CreateLearnerSubscriptions
         }
 
         [Theory]
-        [MemberData(nameof(ValidRequests), MemberType = typeof(CreateLearnerSubscriptionsTest))]
-        public async Task TestExecute_WhenInputIsValid_SubscriptionIsCreated(CreateLearnerSubscriptionsRequest testRequest)
+        [MemberData(nameof(ValidRequests), MemberType = typeof(CreateSubscriptionsTest))]
+        public async Task TestExecute_WhenInputIsValid_SubscriptionIsCreated(CreateSubscriptionRequest testRequest)
         {
             // Arrange
             var dbContext = InitDataModel();
 
-            var appOperation = new CreateLearnerSubscriptionsOperation(
+            var appOperation = new CreateSubscriptionOperation(
                 dbContext: dbContext,
                 dateTimeService: MockUtils.MockDateTimeService(new DateTime(2021, 7, 10)),
-                logger: MockUtils.MockLogger<CreateLearnerSubscriptionsOperation>());
+                logger: MockUtils.MockLogger<CreateSubscriptionOperation>());
 
             // Act
             var result = await appOperation.Execute(testRequest);
@@ -71,7 +71,7 @@ namespace Demo.Microservice.App.Test.CreateLearnerSubscriptions
             Assert.NotNull(result);
             Assert.True(result.Completed);
 
-            var subscription = dbContext.MemberSubscription.Find(4);
+            var subscription = dbContext.StudentSubscription.Find(4);
             Assert.NotNull(subscription);
         }
     }

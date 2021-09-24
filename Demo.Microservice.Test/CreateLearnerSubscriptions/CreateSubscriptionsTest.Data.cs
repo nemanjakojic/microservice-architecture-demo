@@ -1,61 +1,56 @@
 ﻿using Demo.Microservice.App.Data.Context;
 using Demo.Microservice.App.Data.Entity;
-using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using System;
 
-namespace Demo.Microservice.App.Test.GetLearnerSubscriptions
+namespace Demo.Microservice.App.Test.CreateLearnerSubscriptions
 {
-    public partial class GetLearnerSubscriptionsTest
+    public partial class CreateSubscriptionsTest
     {
         private static readonly Guid ValidInstitutionId = Guid.Parse("A1A1A1A1-A1A1-A1A1-A1A1-A1A1A1A1A1A1");
         private static readonly Guid ValidInstitutionSubscriptionId = Guid.Parse("B1B1B1B1-B1B1-B1B1-B1B1-B1B1B1B1B1B1");
         private const int ValidAccountId = 111111;
-        
+
         private SubscriptionDbContext InitDataModel()
         {
             var dbContext = ServiceProvider.GetRequiredService<SubscriptionDbContext>();
             InitInstitutionSubscriptions(dbContext);
-            InitExamYears(dbContext);
-            InitExamBanks(dbContext);
-            InitMemberSubscriptions(dbContext);
+            InitQuestionBanks(dbContext);
+            InitStudentSubscriptions(dbContext);
             return dbContext;
         }
-        
-        private void InitMemberSubscriptions(SubscriptionDbContext dbContext)
+
+        private void InitStudentSubscriptions(SubscriptionDbContext dbContext)
         {
             var instSubscription = dbContext.InstitutionSubscription.Find(ValidInstitutionSubscriptionId);
 
-            dbContext.MemberSubscription.Add(new MemberSubscription
+            dbContext.StudentSubscription.Add(new StudentSubscription
             {
                 ID = 1,
                 AccountID = ValidAccountId,
                 ValidityStartDate = new DateTime(2021, 6, 1),
                 ValidityPeriod = 90,
                 GradYear = 2018,
-                ExamBank = dbContext.ExamBank.Find(1),
-                ExamYear = dbContext.ExamYear.Find(2),
+                QuestionBank = dbContext.QuestionBank.Find(1),
                 InstitutionSubscription = instSubscription
             });
-            dbContext.MemberSubscription.Add(new MemberSubscription
+            dbContext.StudentSubscription.Add(new StudentSubscription
             {
                 ID = 2,
                 AccountID = ValidAccountId,
                 ValidityStartDate = new DateTime(2021, 1, 1),
                 ValidityPeriod = 90,
-                ExamBank = dbContext.ExamBank.Find(2),
-                ExamYear = dbContext.ExamYear.Find(1),
+                QuestionBank = dbContext.QuestionBank.Find(2),
                 InstitutionSubscription = instSubscription
             });
-            dbContext.MemberSubscription.Add(new MemberSubscription
+            dbContext.StudentSubscription.Add(new StudentSubscription
             {
                 ID = 3,
                 AccountID = ValidAccountId,
                 ValidityStartDate = new DateTime(2020, 9, 1),
                 ValidityPeriod = 365,
                 GradYear = 2019,
-                ExamBank = dbContext.ExamBank.Find(3),
-                ExamYear = dbContext.ExamYear.Find(1),
+                QuestionBank = dbContext.QuestionBank.Find(3),
                 InstitutionSubscription = instSubscription
             });
             dbContext.SaveChanges();
@@ -65,34 +60,15 @@ namespace Demo.Microservice.App.Test.GetLearnerSubscriptions
         {
             dbContext.InstitutionSubscription.Add(new InstitutionSubscription
             {
-                InstitutionNodeId = ValidInstitutionId,
-                InstitutionSubscriptionId = ValidInstitutionSubscriptionId
+                InstitutionId = ValidInstitutionId,
+                Id = ValidInstitutionSubscriptionId
             });
             dbContext.SaveChanges();
         }
 
-        private void InitExamYears(SubscriptionDbContext dbContext)
+        private void InitQuestionBanks(SubscriptionDbContext dbContext)
         {
-            dbContext.ExamYear.Add(new ExamYear
-            {
-                ID = 1,
-                Name = "AY 2019-2020",
-                Start = 2019,
-                Finish = 2020
-            });
-            dbContext.Add(new ExamYear
-            {
-                ID = 2,
-                Name = "AY 2020-2021",
-                Start = 2020,
-                Finish = 2021
-            });
-            dbContext.SaveChanges();
-        }
-
-        private void InitExamBanks(SubscriptionDbContext dbContext)
-        {
-            dbContext.ExamBank.Add(new ExamBank
+            dbContext.QuestionBank.Add(new QuestionBank
             {
                 ID = 1,
                 Active = true,
@@ -101,7 +77,7 @@ namespace Demo.Microservice.App.Test.GetLearnerSubscriptions
                 EndDate = new DateTime(2021, 6, 30),
                 TimeStamp = new DateTime(2020, 9, 1)
             });
-            dbContext.ExamBank.Add(new ExamBank
+            dbContext.QuestionBank.Add(new QuestionBank
             {
                 ID = 2,
                 Active = true,
@@ -110,7 +86,7 @@ namespace Demo.Microservice.App.Test.GetLearnerSubscriptions
                 EndDate = new DateTime(2021, 6, 30),
                 TimeStamp = new DateTime(2020, 9, 1)
             });
-            dbContext.ExamBank.Add(new ExamBank
+            dbContext.QuestionBank.Add(new QuestionBank
             {
                 ID = 3,
                 Active = true,

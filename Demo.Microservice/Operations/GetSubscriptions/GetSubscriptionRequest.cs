@@ -4,9 +4,9 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace Demo.Microservice.App.Operations.GetLearnerSubscriptions
+namespace Demo.Microservice.App.Operations.GetSubscriptions
 {
-    public class GetLearnerSubscriptionsRequest : ServiceRequest
+    public class GetSubscriptionsRequest : ServiceRequest
     {
         public Guid InstitutionId { get; set; }
         public int AccountId { get; set; }

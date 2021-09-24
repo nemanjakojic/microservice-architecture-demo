@@ -1,8 +1,8 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using Demo.Microservice.App.Data.Context;
-using Demo.Microservice.App.Operations.CreateLearnerSubscriptions;
-using Demo.Microservice.App.Operations.GetLearnerSubscriptions;
+using Demo.Microservice.App.Operations.CreateSubscriptions;
+using Demo.Microservice.App.Operations.GetSubscriptions;
 
 namespace Demo.Microservice.App
 {
@@ -12,8 +12,8 @@ namespace Demo.Microservice.App
         {
             Demo.Microservice.Core.StartupHooks.ConfigureServices(services);
 
-            services.AddTransient<GetLearnerSubscriptionsOperation>();
-            services.AddTransient<CreateLearnerSubscriptionsOperation>();
+            services.AddTransient<GetSubscriptionOperation>();
+            services.AddTransient<CreateSubscriptionOperation>();
             services.AddTransient<ISubscriptionDbContext>(x => new SubscriptionDbContext(dbContextOptions));
         }
     }

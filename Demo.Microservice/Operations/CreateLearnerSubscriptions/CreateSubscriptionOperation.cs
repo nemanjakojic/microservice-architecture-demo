@@ -10,27 +10,27 @@ using Demo.Microservice.Core.Service;
 using Demo.Microservice.App.Data.Entity;
 using Demo.Microservice.Core.Extensions;
 
-namespace Demo.Microservice.App.Operations.CreateLearnerSubscriptions
+namespace Demo.Microservice.App.Operations.CreateSubscriptions
 {
-    public class CreateLearnerSubscriptionsOperation : CoreOperationBase<CreateLearnerSubscriptionsRequest, CreateLearnerSubscriptionResponse>
+    public class CreateSubscriptionsOperation : CoreOperationBase<CreateSubscriptionsRequest, CreateSubscriptionResponse>
     {
         private readonly ISubscriptionDbContext _context;
         private readonly IDateTimeService _dateTimeService;
 
-        public CreateLearnerSubscriptionsOperation(ISubscriptionDbContext dbContext, IDateTimeService dateTimeService, ILogger<CreateLearnerSubscriptionsOperation> logger) : base(logger)
+        public CreateSubscriptionsOperation(ISubscriptionDbContext dbContext, IDateTimeService dateTimeService, ILogger<CreateSubscriptionsOperation> logger) : base(logger)
         {
             _context = dbContext;
             _dateTimeService = dateTimeService;
         }
 
-        protected override Task<ValidationResult> ValidateRequest(CreateLearnerSubscriptionsRequest request)
+        protected override Task<ValidationResult> ValidateRequest(CreateSubscriptionsRequest request)
         {
             if (request.InstitutionSubscriptionData == null)
             {
                 return ValidationResult.Failure().WithError("Institution subscription data is null.").ToTask();
             }
 
-            if (request.Learners == null || !request.Learners.Any())
+            if (request.Students == null || !request.Students.Any())
             {
                 return ValidationResult.Failure().WithError("No learners were specified.").ToTask();
             }
@@ -38,22 +38,22 @@ namespace Demo.Microservice.App.Operations.CreateLearnerSubscriptions
             return ValidationResult.Success().ToTask();
         }
 
-        protected override async Task<CreateLearnerSubscriptionResponse> ExecuteRequest(CreateLearnerSubscriptionsRequest request, ValidationResult validation)
+        protected override async Task<CreateSubscriptionResponse> ExecuteRequest(CreateSubscriptionsRequest request, ValidationResult validation)
         {
             await using var transaction = await _context.Database.BeginTransactionAsync();
 
-            var newLearnerSubscriptions = await PrepareNewLearnerSubscriptions(request);
+            var newLearnerSubscriptions = await PrepareNewStudentSubscriptions(request);
             foreach (var newSubsiption in newLearnerSubscriptions)
             {
-                await _context.MemberSubscription.AddAsync(newSubsiption);
+                await _context.StudentSubscription.AddAsync(newSubsiption);
             }
 
             await _context.SaveChangesAsync();
             await transaction.CommitAsync();
 
-            return new CreateLearnerSubscriptionResponse
+            return new CreateSubscriptionResponse
             {
-                CreatedSubscriptions = newLearnerSubscriptions.Select(s => new CreateLearnerSubscriptionResponse.LearnerSubscription
+                CreatedSubscriptions = newLearnerSubscriptions.Select(s => new CreateSubscriptionResponse.StudentSubscription
                 {
                     LearnerAccountId = s.AccountID,
                     LearnerSubscriptionId = s.ID
@@ -61,36 +61,30 @@ namespace Demo.Microservice.App.Operations.CreateLearnerSubscriptions
             }.Success();
         }
 
-        private async Task<IEnumerable<MemberSubscription>> PrepareNewLearnerSubscriptions(CreateLearnerSubscriptionsRequest request)
+        private async Task<IEnumerable<StudentSubscription>> PrepareNewStudentSubscriptions(CreateSubscriptionsRequest request)
         {
             DateTime now = _dateTimeService.UtcNow();
 
             var institutionSubscription = request.InstitutionSubscriptionData;
             var subscriptionValidityPeriod = (institutionSubscription.EndDate - institutionSubscription.StartDate);
 
-            var unusedExpirationDays = await GetUnusedExpirationDays(institutionSubscription.ExamBankId);
+            var unusedExpirationDays = await GetUnusedExpirationDays(institutionSubscription.QuestionBankId);
 
-            List<MemberSubscription> subscriptions = new List<MemberSubscription>();
-            foreach (var learner in request.Learners)
+            List<StudentSubscription> subscriptions = new List<StudentSubscription>();
+            foreach (var learner in request.Students)
             {
-                var examBank = _context.ExamBank.Single(eb => eb.ID == request.InstitutionSubscriptionData.ExamBankId);
-                var examYear = _context.ExamYear.Single(ay => ay.ID == request.InstitutionSubscriptionData.ExamYearId);
-                var instituionSubscription = _context.InstitutionSubscription.Single(s => s.InstitutionSubscriptionId == request.InstitutionSubscriptionData.InstitutionSubscriptionId);
+                var questionBank = _context.QuestionBank.Single(eb => eb.ID == request.InstitutionSubscriptionData.QuestionBankId);
+                var instituionSubscription = _context.InstitutionSubscription.Single(s => s.Id == request.InstitutionSubscriptionData.Id);
 
-                MemberSubscription newSubscription = new MemberSubscription
+                StudentSubscription newSubscription = new StudentSubscription
                 {
                     AccountID = learner.AccountId,
-                    ExternalId = Guid.NewGuid(),
-                    // InstitutionSubscriptionId = request.InstitutionSubscriptionData.InstitutionSubscriptionId,
                     InstitutionSubscription = instituionSubscription,
-                    ExamBank = examBank,
-                    ExamYear = examYear,
+                    QuestionBank = questionBank,
                     GradYear = learner.GraduationYear,
                     Active = true,
-                    AvailableDate = now,
                     ValidityStartDate = request.InstitutionSubscriptionData.StartDate,
                     ValidityPeriod = subscriptionValidityPeriod.Days,
-                    AvailablePeriod = unusedExpirationDays,
                     TimeStamp = now
                 };
                 subscriptions.Add(newSubscription);
